@@ -1,6 +1,6 @@
 # Check-Host
 
-Cross-platform PowerShell Module for check ping, hhtp, tcp, udp and dns to Internet using Check Host via REST API
+Cross-platform PowerShell Module for check ping, hhtp, tcp, udp and dns to Internet using **[Check-Host](https://check-host.net/)** via REST API.
 
 ## Install Windows
 
@@ -28,6 +28,10 @@ else
 fi
 curl -s https://raw.githubusercontent.com/Lifailon/Check-Host/rsa/Get-CheckHost/Get-CheckHost.psm1 -o $path/Get-CheckHost.psm1
 ```
+
+Dependencies: **[PowerShell Core](https://github.com/PowerShell/PowerShell)**
+
+`apt install powershell`
 
 ## Format
 
@@ -235,6 +239,10 @@ rs1.node.check-host.net Belgrade        1
 sudo curl -s https://raw.githubusercontent.com/Lifailon/Check-Host/rsa/netcheck/netcheck.sh -o /usr/bin/netcheck
 sudo chmod +x /usr/bin/netcheck
 ```
+
+Dependencies: **[jq](https://github.com/jqlang/jq)**
+
+`apt install jq`
 
 ### ping
 
