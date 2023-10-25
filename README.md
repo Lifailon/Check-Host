@@ -236,7 +236,7 @@ rs1.node.check-host.net Belgrade        1
 ### Install
 
 ```bash
-sudo curl -s https://raw.githubusercontent.com/Lifailon/net-tools/rsa/netcheck.sh -o /usr/bin/netcheck
+sudo curl -s https://raw.githubusercontent.com/Lifailon/Check-Host/rsa/netcheck.sh -o /usr/bin/netcheck
 sudo chmod +x /usr/bin/netcheck
 ```
 
