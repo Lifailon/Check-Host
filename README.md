@@ -226,3 +226,207 @@ es1.node.check-host.net Barcelona       1
 lt1.node.check-host.net Vilnius         1
 rs1.node.check-host.net Belgrade        1
 ```
+
+# netcheck
+
+**Module for shell Bash.**
+
+**Format**: `netcheck --type <ping/dns/http/tcp/udp> <host> <node_count/node_name>`
+
+### Install
+
+```bash
+sudo curl -s https://raw.githubusercontent.com/Lifailon/net-tools/rsa/netcheck.sh -o /usr/bin/netcheck
+sudo chmod +x /usr/bin/netcheck
+```
+
+### ping
+
+```bash
+lifailon@netbox-01:~$ netcheck -t ping yandex.ru
+{
+  "kz1.node.check-host.net": [
+    [
+      [
+        "OK",
+        0.0498127937316895,
+        "77.88.55.88"
+      ],
+      [
+        "OK",
+        0.0495548248291016
+      ],
+      [
+        "OK",
+        0.0496258735656738
+      ],
+      [
+        "OK",
+        0.0498530864715576
+      ]
+    ]
+  ]
+}
+```
+
+### List node
+
+Get node list use selected source for check:
+
+```bash
+lifailon@netbox-01:~$ netcheck -n
+{
+  "hostname": "ae1.node.check-host.net",
+  "location": "Dubai"
+}
+{
+  "hostname": "at1.node.check-host.net",
+  "location": "Vienna"
+}
+...
+{
+  "hostname": "us1.node.check-host.net",
+  "location": "Los Angeles"
+}
+{
+  "hostname": "us3.node.check-host.net",
+  "location": "Atlanta"
+}
+```
+
+### Ping using selected node
+
+```
+lifailon@netbox-01:~$ netcheck -t ping yandex.ru us1.node.check-host.net
+{
+  "us1.node.check-host.net": [
+    [
+      [
+        "OK",
+        0.210521936416626,
+        "5.255.255.70"
+      ],
+      [
+        "OK",
+        0.210937976837158
+      ],
+      [
+        "OK",
+        0.210684061050415
+      ],
+      [
+        "OK",
+        0.210653066635132
+      ]
+    ]
+  ]
+}
+```
+
+### dns
+
+```bash
+lifailon@netbox-01:~$ netcheck -t dns yandex.ru
+{
+  "br1.node.check-host.net": [
+    {
+      "A": [
+        "5.255.255.77",
+        "77.88.55.60",
+        "77.88.55.88",
+        "5.255.255.70"
+      ],
+      "AAAA": [
+        "2a02:6b8:a::a"
+      ],
+      "TTL": 193
+    }
+  ]
+}
+```
+
+### http
+
+Using multiple nodes:
+
+```bash
+lifailon@netbox-01:~$ netcheck -t http yandex.ru 5
+{
+  "ch1.node.check-host.net": [
+    [
+      1,
+      0.218896150588989,
+      "Moved temporarily",
+      "302",
+      "77.88.55.60"
+    ]
+  ],
+  "hk1.node.check-host.net": [
+    [
+      1,
+      0.687891006469727,
+      "Moved temporarily",
+      "302",
+      "77.88.55.88"
+    ]
+  ],
+  "md1.node.check-host.net": [
+    [
+      1,
+      0.20933985710144,
+      "Moved temporarily",
+      "302",
+      "77.88.55.60"
+    ]
+  ],
+  "ru2.node.check-host.net": [
+    [
+      1,
+      0.0666680335998535,
+      "Moved temporarily",
+      "302",
+      "5.255.255.77"
+    ]
+  ],
+  "ua3.node.check-host.net": [
+    [
+      1,
+      0.349638938903809,
+      "Moved temporarily",
+      "302",
+      "5.255.255.77"
+    ]
+  ]
+}
+```
+
+### tcp and udp
+
+```bash
+root@netbox-01:/home/lifailon# netcheck -t tcp yandex.ru:443
+{
+  "ua2.node.check-host.net": [
+    {
+      "address": "77.88.55.88",
+      "time": 0.059514
+    }
+  ]
+}
+root@netbox-01:/home/lifailon# netcheck -t tcp yandex.ru:22
+{
+  "ae1.node.check-host.net": [
+    {
+      "error": "Connection timed out"
+    }
+  ]
+}
+root@netbox-01:/home/lifailon# netcheck -t udp yandex.ru:443
+{
+  "cz1.node.check-host.net": [
+    {
+      "address": "77.88.55.60",
+      "timeout": 1
+    }
+  ]
+}
+```
