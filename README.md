@@ -12,14 +12,21 @@ if (Test-Path $path) {
 } else {
     New-Item -ItemType Directory -Path $path
 }
-Invoke-RestMethod https://raw.githubusercontent.com/Lifailon/Check-Host//rsa/Get-CheckHost/Get-CheckHost.psm1 -OutFile "$path\Get-CheckHost.psm1"
+Invoke-RestMethod https://raw.githubusercontent.com/Lifailon/Check-Host/rsa/Get-CheckHost/Get-CheckHost.psm1 -OutFile "$path\Get-CheckHost.psm1"
 ```
 
 ## Install Linux
 
 ```bash
-sudo curl -s https://raw.githubusercontent.com/Lifailon/Check-Host//rsa/Get-CheckHost/Get-CheckHost.psm1 -o /usr/bin/Get-CheckHost
-sudo chmod +x /usr/bin/Get-CheckHost
+path=$(pwsh -Command '$($env:PSModulePath -split ":")[0]')/Get-CheckHost
+if [ -f $path ]
+then
+    rm $path
+    mkdir $path
+else
+    mkdir $path
+fi
+curl -s https://raw.githubusercontent.com/Lifailon/Check-Host/rsa/Get-CheckHost/Get-CheckHost.psm1 -o $path/Get-CheckHost.psm1
 ```
 
 ## Shell
@@ -28,7 +35,21 @@ sudo chmod +x /usr/bin/Get-CheckHost
 
 ## Format
 
-`Get-CheckHost -Type <ping/http/tcp/udp/dns> -Server <hostname> -Count <nodes>`
+**Windows**: `Get-CheckHost -Type <ping/http/tcp/udp/dns> -Server <hostname> -Count <nodes>`
+
+**Linux**: `pwsh -c "Get-CheckHost -Server yandex.ru:443 -Type tcp"`
+
+```bash
+lifailon@grafana-01:~$ pwsh -c "Get-CheckHost -Server yandex.ru:443 -Type tcp"
+
+Server                  Location Status
+------                  -------- ------
+ir3.node.check-host.net Shiraz    0.092
+ir6.node.check-host.net Karaj     0.189
+pt1.node.check-host.net Viana     0.096
+tr1.node.check-host.net Istanbul  0.090
+ua2.node.check-host.net Kyiv      0.065
+```
 
 ### Node list
 
