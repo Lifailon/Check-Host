@@ -29,10 +29,6 @@ fi
 curl -s https://raw.githubusercontent.com/Lifailon/Check-Host/rsa/Get-CheckHost/Get-CheckHost.psm1 -o $path/Get-CheckHost.psm1
 ```
 
-## Shell
-
-**Bash module version:** **[netcheck](https://github.com/Lifailon/net-tools#netcheck)**
-
 ## Format
 
 **Windows**: `Get-CheckHost -Type <ping/http/tcp/udp/dns> -Server <hostname> -Count <nodes>`
@@ -229,14 +225,14 @@ rs1.node.check-host.net Belgrade        1
 
 # netcheck
 
-**Module for shell Bash.**
+**Module version for shell Bash.**
 
 **Format**: `netcheck --type <ping/dns/http/tcp/udp> <host> <node_count/node_name>`
 
 ### Install
 
 ```bash
-sudo curl -s https://raw.githubusercontent.com/Lifailon/Check-Host/rsa/netcheck.sh -o /usr/bin/netcheck
+sudo curl -s https://raw.githubusercontent.com/Lifailon/Check-Host/rsa/netcheck/netcheck.sh -o /usr/bin/netcheck
 sudo chmod +x /usr/bin/netcheck
 ```
 
@@ -269,7 +265,7 @@ lifailon@netbox-01:~$ netcheck -t ping yandex.ru
 }
 ```
 
-### List node
+### Nodes
 
 Get node list use selected source for check:
 
