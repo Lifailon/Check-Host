@@ -8,9 +8,9 @@ Cross-platform PowerShell Module for check ping, hhtp, tcp, udp and dns to Inter
 $path = $(($env:PSModulePath -split ";")[0]) + "\Get-CheckHost"
 if (Test-Path $path) {
     Remove-Item $path -Force -Recurse
-    New-Item -Path $path
+    New-Item -ItemType Directory -Path $path
 } else {
-    New-Item -Path $path
+    New-Item -ItemType Directory -Path $path
 }
 Invoke-RestMethod https://raw.githubusercontent.com/Lifailon/Check-Host//rsa/Get-CheckHost/Get-CheckHost.psm1 -OutFile "$path\Get-CheckHost.psm1"
 ```
