@@ -24,7 +24,7 @@ sudo chmod +x /usr/bin/Get-CheckHost
 
 ## Shell
 
-**Bash module version:** **[netcheck](https://github.com/Lifailon/net-tools#netcheck)*
+**Bash module version:** **[netcheck](https://github.com/Lifailon/net-tools#netcheck)**
 
 ## Format
 
