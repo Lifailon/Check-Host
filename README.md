@@ -2,15 +2,38 @@
 
 Cross-platform PowerShell Module for check ping, hhtp, tcp, udp and dns to Internet using Check Host via REST API
 
-## Install
+## Install Windows
+
+```PowerShell
+$path = $(($env:PSModulePath -split ";")[0]) + "\Get-CheckHost"
+if (Test-Path $path) {
+    Remove-Item $path -Force -Recurse
+    New-Item -Path $path
+} else {
+    New-Item -Path $path
+}
+Invoke-RestMethod https://raw.githubusercontent.com/Lifailon/Check-Host//rsa/Get-CheckHost/Get-CheckHost.psm1 -OutFile "$path\Get-CheckHost.psm1"
+```
+
+## Install Linux
+
+```bash
+sudo curl -s https://raw.githubusercontent.com/Lifailon/Check-Host//rsa/Get-CheckHost/Get-CheckHost.psm1 -o /usr/bin/Get-CheckHost
+sudo chmod +x /usr/bin/Get-CheckHost
+```
+
+## Shell
+
+**Bash module version:** **[netcheck](https://github.com/Lifailon/net-tools#netcheck)*
 
 ## Format
 
-Get-CheckHost -Type <ping/http/tcp/udp/dns> -Server <hostname> -Count <nodes>
+`Get-CheckHost -Type <ping/http/tcp/udp/dns> -Server <hostname> -Count <nodes>`
 
-## Example
+### Node list
 
-```
+```PowerShell
+PS C:\Users\lifailon\Desktop> Import-Module Get-CheckHost
 PS C:\Users\lifailon\Desktop> Get-CheckHost -List
 
 Server                  Address         Location
@@ -56,8 +79,11 @@ ua3.node.check-host.net 91.102.183.15   SpaceX Starlink
 uk1.node.check-host.net 185.138.164.21  Coventry
 us1.node.check-host.net 5.253.30.82     Los Angeles
 us3.node.check-host.net 185.143.223.66  Atlanta
+```
 
-PS C:\Users\lifailon\Desktop>
+### Check ping
+
+```PowerShell
 PS C:\Users\lifailon\Desktop> Get-CheckHost -Server google.com -Type ping -Count 5
 
 Server                  Location Status Time
@@ -83,7 +109,6 @@ tr1.node.check-host.net Istanbul OK     0,05
 tr1.node.check-host.net Istanbul OK     0,05
 tr1.node.check-host.net Istanbul OK     0,05
 
-PS C:\Users\lifailon\Desktop>
 PS C:\Users\lifailon\Desktop> Get-CheckHost -Server gooooooooogle.com -Type ping -Count 5
 
 Server                  Location  Status  Time
@@ -108,8 +133,11 @@ pl1.node.check-host.net Poznan    TIMEOUT 3,00
 pl1.node.check-host.net Poznan    TIMEOUT 3,00
 pl1.node.check-host.net Poznan    TIMEOUT 3,00
 pl1.node.check-host.net Poznan    TIMEOUT 3,00
+```
 
-PS C:\Users\lifailon\Desktop>
+### Check http
+
+```PowerShell
 PS C:\Users\lifailon\Desktop> Get-CheckHost -Server google.com:443 -Type http -Count 5
 
 Server                  Location     Status Time
@@ -120,7 +148,6 @@ fi1.node.check-host.net Helsinki     True   0,06
 ua1.node.check-host.net Khmelnytskyi True   0,15
 ua2.node.check-host.net Kyiv         True   0,17
 
-PS C:\Users\lifailon\Desktop>
 PS C:\Users\lifailon\Desktop> Get-CheckHost -Server google.com:444 -Type http -Count 5
 
 Server                  Location Status  Time
@@ -129,8 +156,11 @@ bg1.node.check-host.net Sofia    False   3,00
 ch1.node.check-host.net Zurich   False  18,07
 pl1.node.check-host.net Poznan   False  18,06
 ru1.node.check-host.net Moscow   False  18,00
+```
 
-PS C:\Users\lifailon\Desktop>
+### Check dns
+
+```PowerShell
 PS C:\Users\lifailon\Desktop> Get-CheckHost -Server google.com -Type dns -Count 5
 
 Server                  Location  A_Record
@@ -140,8 +170,11 @@ es1.node.check-host.net Barcelona 142.250.184.14
 rs1.node.check-host.net Belgrade  142.251.208.110
 se1.node.check-host.net Stockholm
 tr2.node.check-host.net Gebze     {173.194.76.139, 173.194.76.102, 173.194.76.100, 173.194.76.138…} 
+```
 
-PS C:\Users\lifailon\Desktop>
+### Check tcp and udp port
+
+```PowerShell
 PS C:\Users\lifailon\Desktop> Get-CheckHost -Server google.com:443 -Type tcp -Count 5
 
 Server                  Location         Status
@@ -152,7 +185,6 @@ ru3.node.check-host.net Saint Petersburg   0,01
 ru4.node.check-host.net Ekaterinburg       0,10
 tr2.node.check-host.net Gebze              0,05
 
-PS C:\Users\lifailon\Desktop>
 PS C:\Users\lifailon\Desktop> Get-CheckHost -Server google.com:22 -Type tcp -Count 5
 
 Server                  Location Status
@@ -163,7 +195,6 @@ lt1.node.check-host.net Vilnius  Connection timed out
 ua2.node.check-host.net Kyiv     Connection timed out
 uk1.node.check-host.net Coventry Connection timed out
 
-PS C:\Users\lifailon\Desktop>
 PS C:\Users\lifailon\Desktop> Get-CheckHost -Server google.com:22 -Type udp -Count 5
 
 Server                  Location  Timeout
